@@ -37,7 +37,7 @@ function App() {
             <Routes>
               <Route path='/' element={<ContactList />} />
               <Route path='contactos' element={<ContactForm />} />
-              <Route path='contactos/:contacId' element={<ContactForm />} />
+              <Route path='contactos/:contactId' element={<ContactForm />} />
             </Routes>
           </main>
         </BrowserRouter>

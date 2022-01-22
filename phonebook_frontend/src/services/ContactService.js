@@ -1,7 +1,7 @@
 const API_URL = "http://127.0.0.1:4200/api/contacts";
 
 export const getContacts = async() => {
-    return await fetch(`${API_URL}`);
+    return await fetch(API_URL);
 }
 
 export const getContact = async (contactId) => {
@@ -36,8 +36,8 @@ export const updateContact = async (contactId, updatedContact) => {
     });
 };
 
-export const deleteCompany = async (contactId) => {
-    return await fetch(`${API_URL}${contactId}`, {
+export const deleteContact = async (contactId) => {
+    return await fetch(`${API_URL}/${contactId}`, {
         method: 'DELETE'
     });
 };

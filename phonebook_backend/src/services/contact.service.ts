@@ -3,7 +3,7 @@ import Contact, { ContactDocument } from '../models/contact.model';
 
 export async function getContacts(){
     try {
-        const contacts = await Contact.find().populate('user', '-password');
+        const contacts = await Contact.find({});
         return contacts;
     } catch (error: any) {
         throw new Error(error);

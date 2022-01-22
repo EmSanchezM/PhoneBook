@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
@@ -9,13 +9,15 @@ export const ContactForm = () => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [errors, setErrors] = useState(null);
-
-    const [formValues, handleInputChange] = useForm({
+    const [initialValues, setInitialValues] = useState({
         name: '',
         lastName: '',
         phoneNumber: ''
     });
+
+    const [errors, setErrors] = useState(null);
+
+    const [formValues, handleInputChange] = useForm(initialValues);
 
     const { name, lastName, phoneNumber } = formValues;
 
@@ -28,26 +30,48 @@ export const ContactForm = () => {
                 const data = await response.json();
                 if(data.ok){
                     toast.success('Contacto agregado exitosamente');
+                    navigate('/');
                 }
             }else{
                 response = await ContactService.updateContact(params.contactId, formValues);
                 const data = await response.json();
                 if(data.ok){
                     toast.success('Contacto actualizado exitosamente');
+                    navigate('/');
                 }
             }
-            navigate('/');
+           
         } catch (error) {
-            console.log(error);
-            setErrors(error);
+            console.error(error.response);
+            setErrors(error.message);
         }
     }
 
+    const getContact = async(contactId) => {
+        try {
+            const response = await ContactService.getContact(contactId);
+            const data = await response.json();
+            const { name, lastName, phoneNumber } = data.contact;
+            setInitialValues({name, lastName, phoneNumber});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+      if(params.contactId){
+          getContact(params.contactId);
+      }
+    }, []);
+    
     return (
         <div className="flex justify-center items-center">
             <section className="px-12 px-6 mt-8">
                 <h1 className="font-bold text-3xl text gray-900">Contacto nuevo</h1>
                 <hr />
+                <div className="px-12 bg-red-800">
+                    { errors && 'ERROR' }
+                </div>
                 <form onSubmit={handleSubmit} className="w-full mt-6">
                     <div className="flex flex-wrap mt-4 -mx-3 px-2">
                         <div className="w-full lg:w-1/2 px-3 mb-3">
