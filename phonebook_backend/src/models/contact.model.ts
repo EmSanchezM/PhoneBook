@@ -5,7 +5,6 @@ export interface ContactDocument extends mongoose.Document {
     name: string;
     lastName: string;
     phoneNumber: string;
-    user: UserDocument['_id'],
     createdAt: Date,
     updatedAt: Date
 }
@@ -13,11 +12,7 @@ export interface ContactDocument extends mongoose.Document {
 const contactSchema = new mongoose.Schema({
     name: { type: String, required: true },
     lastName: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
-    user: { 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    phoneNumber: { type: String, required: true }
 },{
     timestamps: true, 
     versionKey: false

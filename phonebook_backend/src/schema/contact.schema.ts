@@ -14,11 +14,6 @@ const payload = {
         phoneNumber: string({
             required_error: 'Phone Number is required'
         }).min(8, { message: 'Must be 8 or more characters long'}),
-
-        user: string({
-            required_error: 'User ID is required'
-        }),
-
     })
 };
 
@@ -37,12 +32,7 @@ const updatePayload = {
             invalid_type_error: 'Phone number must be a string'
         })
         .min(8, { message: 'Must be 9 or more characters long'})
-        .optional(),
-
-        user: string({
-            invalid_type_error: 'Last Name must be a string'
-        }).optional()
-        
+        .optional() 
     })
 };
 

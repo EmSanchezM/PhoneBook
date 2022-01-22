@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
-export const Header = () => {
+export const Header = ({ handleToogle }) => {
+
   return (
     <header className="flex justify-between items-center h-16 relative shadow-sm font-mono font-primary px-8">
       <Link className='mt-2 lg:mb-4 mb-0 font-primary uppercase flex' to='/'>
@@ -20,7 +21,7 @@ export const Header = () => {
         </svg>
         <span className='flex justify-center items-center font-bold'>PhoneBook</span>
       </Link>
-      <div className="px-8 cursor-pointer md:hidden">
+      <div className="px-8 cursor-pointer md:hidden" onClick={handleToogle}>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
