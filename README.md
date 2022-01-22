@@ -1,2 +1,2 @@
 # PhoneBook
-Phonebook in reactjs and nodejs 
+Phonebook in Reactjs and Nodejs 
