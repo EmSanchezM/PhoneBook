@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "start": "node build/src/app.js",
-    "build": "tsc"
+    "start": "node dist/src/app.js",
+    "build": "tsc",
+    "deploy": "git add . && git commit -m deploy && git push heroku master"
   },
   "keywords": [],
   "author": "Elvin Sanchez elvinmoises.sanchez@gmail.com",
