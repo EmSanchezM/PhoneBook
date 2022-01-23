@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:4200/api/contacts";
+const API_URL = "http://206.81.12.201:4200/api/contacts";
 
 export const getContacts = async() => {
     return await fetch(API_URL);
