@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { UserDocument } from './user.model';
 
 export interface ContactDocument extends mongoose.Document {
     name: string;
@@ -18,7 +17,7 @@ const contactSchema = new mongoose.Schema({
     versionKey: false
 });
 
-const Contact = mongoose.model<UserDocument>('Contact', contactSchema);
+const Contact = mongoose.model<ContactDocument>('Contact', contactSchema);
 
 export default Contact;
 
