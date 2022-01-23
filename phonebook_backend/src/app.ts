@@ -5,7 +5,7 @@ import connect from './utils/database';
 import logger from './utils/logger';
 import router from './routes';
 
-const port = config.get<number>('port');
+const port = config.get('port');
 
 const app = express();
 
