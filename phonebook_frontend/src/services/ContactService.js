@@ -5,7 +5,7 @@ export const getContacts = async() => {
 }
 
 export const getContact = async (contactId) => {
-    return await fetch(`${API_URL}${contactId}`);
+    return await fetch(`${API_URL}/${contactId}`);
 };
 
 export const createContact = async (newContact) => {
@@ -23,7 +23,7 @@ export const createContact = async (newContact) => {
 };
 
 export const updateContact = async (contactId, updatedContact) => {
-    return await fetch(`${API_URL}${contactId}`, {
+    return await fetch(`${API_URL}/${contactId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

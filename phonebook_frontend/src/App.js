@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './layouts/Header';
 import { ContactList } from './components/Contact/ContactList';
-import { ContactForm } from './components/Contact/ContactForm';
+import ContactForm from './components/Contact/ContactForm';
 import { Dropdown } from './layouts/Dropdown';
 
 function App() {
@@ -36,8 +36,8 @@ function App() {
           <main>
             <Routes>
               <Route path='/' element={<ContactList />} />
-              <Route path='contactos' element={<ContactForm />} />
-              <Route path='contactos/:contactId' element={<ContactForm />} />
+              <Route path='nuevo' element={<ContactForm />} />
+              <Route path='editar/:contactId' element={<ContactForm />} />
             </Routes>
           </main>
         </BrowserRouter>

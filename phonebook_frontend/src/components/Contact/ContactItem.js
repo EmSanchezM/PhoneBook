@@ -4,11 +4,12 @@ import { toast } from 'react-toastify';
 import * as ContactService from '../../services/ContactService';
 
 export const ContactItem = ({ contact, getContacts }) => {
+    
     const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
     const navigate = useNavigate();
 
     const handleDelete = async (contactId) => {
-        console.log(contactId);
         if (window.confirm('Estas seguro de eliminarlo?')) {
             const response = await ContactService.deleteContact(contactId);
             const data = await response.json();
@@ -22,12 +23,12 @@ export const ContactItem = ({ contact, getContacts }) => {
 
     return (
         <tr>
-            <td className="w-1/3 px-5 py-3 border-gray-200"> {Capitalize(contact.name)}</td>
-            <td className="w-1/3 px-5 py-3 border-gray-200"> {Capitalize(contact.lastName)}</td>
-            <td className="w-1/3 px-5 py-3 border-gray-200"> {contact.phoneNumber}</td>
-            <td className="w-1/3 px-5 py-3 border-gray-200">
+            <td className="w-1/3 px-5 py-3 border-gray-200 text-center"> {Capitalize(contact.name)}</td>
+            <td className="w-1/3 px-5 py-3 border-gray-200 text-center"> {Capitalize(contact.lastName)}</td>
+            <td className="w-1/3 px-5 py-3 border-gray-200 text-center"> {contact.phoneNumber}</td>
+            <td className="w-1/3 px-5 py-3 border-gray-200 text-center">
                 <div className="flex justify-center items-center">
-                    <Link to={`contacts/${contact._id}`}>
+                    <Link to={`editar/${contact._id}`}>
                         <svg
                             className="w-6 h-6 text-yellow-400"
                             fill="none"

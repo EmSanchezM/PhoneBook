@@ -4,16 +4,16 @@ const payload = {
     body: object({
         
         name: string({
-            required_error: 'Name is required'
-        }).min(2, { message: 'Must be 2 or more characters long'}),
+            required_error: 'Nombre es requerido'
+        }).min(2, { message: 'Debe tener 2 o más caracteres'}),
 
         lastName: string({
-            required_error: 'Last Name is required'
-        }).min(2, { message: 'Must be 2 or more characters long'}),
+            required_error: 'Apellido es requerido'
+        }).min(2, { message: 'Debe tener 2 o más caracteres'}),
 
         phoneNumber: string({
-            required_error: 'Phone Number is required'
-        }).min(8, { message: 'Must be 8 or more characters long'}),
+            required_error: 'Número de telefono es requerido'
+        }).min(8, { message: 'Debe tener 8 o más caracteres'}),
     })
 };
 
@@ -21,17 +21,17 @@ const updatePayload = {
     body: object({
 
         name: string({
-            invalid_type_error: 'Name must be a string'
+            invalid_type_error: 'El nombre debe de ser un string'
         }),
 
         lastName: string({
-            invalid_type_error: 'Last Name  must be a string'
+            invalid_type_error: 'El apellido debe de ser un string'
         }),
 
         phoneNumber: string({
-            invalid_type_error: 'Phone number must be a string'
+            invalid_type_error: 'El número de telefono debe de ser un string'
         })
-        .min(8, { message: 'Must be 9 or more characters long'})
+        .min(8, { message: 'Debe tener 8 o más caracteres'})
         .optional() 
     })
 };
@@ -39,7 +39,7 @@ const updatePayload = {
 const params = {
     params: object({
         contactId: string({
-            required_error: 'Contact ID is required'
+            required_error: 'Contact ID es requerido'
         }),
     }),
 };

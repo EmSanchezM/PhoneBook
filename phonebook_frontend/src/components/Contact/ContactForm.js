@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForm } from '../../hooks/useForm';
 
 import * as ContactService from '../../services/ContactService';
 
-export const ContactForm = () => {
+const ContactForm = () => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [initialValues, setInitialValues] = useState({
+    const [contact, setContact] = useState({
         name: '',
         lastName: '',
         phoneNumber: ''
@@ -17,61 +16,92 @@ export const ContactForm = () => {
 
     const [errors, setErrors] = useState(null);
 
-    const [formValues, handleInputChange] = useForm(initialValues);
+    const { name, lastName, phoneNumber } = contact;
 
-    const { name, lastName, phoneNumber } = formValues;
+    const handleInputChange = ({ target }) => {
+        setContact({
+            ...contact,
+            [target.name]: target.value
+        });
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(contact.name === 0){
+            setErrors({
+                ...errors,
+                field: 'name',
+                message: 'El nombre es un campo requerido'
+            });
+        }
+
+        if(contact.lastName === 0){
+            setErrors({
+                ...errors,
+                field: 'lastName',
+                message: 'El apellido es un campo requerido'
+            });
+        }
+
+        if(contact.phoneNumber === 0){
+            setErrors({
+                ...errors,
+                field: 'phoneNumber',
+                message: 'El número de telefono es un campo requerido'
+            });
+        }
+
+        console.log('ERRORS ', errors);
+
         try {
             let response;
             if (!params.contactId) {
-                response = await ContactService.createContact(formValues);
+                response = await ContactService.createContact(contact);
                 const data = await response.json();
-                if(data.ok){
+                if (data.ok) {
                     toast.success('Contacto agregado exitosamente');
                     navigate('/');
+                }else{
+                    
+                    console.log('errores aca ' ,data);
                 }
-            }else{
-                response = await ContactService.updateContact(params.contactId, formValues);
+            } else {
+                response = await ContactService.updateContact(params.contactId, contact);
                 const data = await response.json();
-                if(data.ok){
+                if (data.ok) {
                     toast.success('Contacto actualizado exitosamente');
                     navigate('/');
                 }
             }
-           
+
         } catch (error) {
-            console.error(error.response);
-            setErrors(error.message);
+            console.error(error.response.data);
         }
     }
 
-    const getContact = async(contactId) => {
+    const getContact = async (contactId) => {
         try {
             const response = await ContactService.getContact(contactId);
             const data = await response.json();
             const { name, lastName, phoneNumber } = data.contact;
-            setInitialValues({name, lastName, phoneNumber});
+            setContact({ name, lastName, phoneNumber });
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
-      if(params.contactId){
-          getContact(params.contactId);
-      }
+        if (params.contactId) {
+            getContact(params.contactId);
+        }
+        // eslint-disable-next-line
     }, []);
-    
+
     return (
         <div className="flex justify-center items-center">
             <section className="px-12 px-6 mt-8">
-                <h1 className="font-bold text-3xl text gray-900">Contacto nuevo</h1>
+                <h1 className="font-bold text-3xl text gray-900">{params.contactId ? 'Editar ' : 'Nuevo '}Contacto</h1>
                 <hr />
-                <div className="px-12 bg-red-800">
-                    { errors && 'ERROR' }
-                </div>
                 <form onSubmit={handleSubmit} className="w-full mt-6">
                     <div className="flex flex-wrap mt-4 -mx-3 px-2">
                         <div className="w-full lg:w-1/2 px-3 mb-3">
@@ -85,6 +115,7 @@ export const ContactForm = () => {
                                 onChange={handleInputChange}
                                 autoComplete="off"
                             />
+                            { errors.field === 'name' && <p className="text-red-500 text-xs italic">{errors.message}</p>} 
                         </div>
                         <div className="w-full lg:w-1/2 px-3 mb-3">
                             <label htmlFor="lastName" className="uppercase tracking-wide text-gray-700 text-xs font-bold font-primary mb-2">Apellido</label>
@@ -97,6 +128,7 @@ export const ContactForm = () => {
                                 onChange={handleInputChange}
                                 autoComplete="off"
                             />
+                            { errors.field === 'lastName' && <p className="text-red-500 text-xs italic">{errors.message}</p>} 
                         </div>
                     </div>
                     <div className="flex flex-wrap mt-4 -mx-3 px-2">
@@ -111,11 +143,12 @@ export const ContactForm = () => {
                                 onChange={handleInputChange}
                                 autoComplete="off"
                             />
+                            { errors.field === 'phoneNumber' && <p className="text-red-500 text-xs italic">{errors.message}</p>} 
                         </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 px-4 mb-4 mt-4">
                         <button type='submit' className="block w-full max-w-xs mx-auto bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold">
-                            Guardar
+                            {params.contactId ? 'Editar' : 'Guardar'}
                         </button>
                     </div>
                 </form>
@@ -123,3 +156,5 @@ export const ContactForm = () => {
         </div>
     );
 };
+
+export default ContactForm;

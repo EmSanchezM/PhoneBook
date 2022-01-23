@@ -30,7 +30,7 @@ export const Header = ({ handleToogle }) => {
         <Link className='p-6 md:p-4 hover:text-red-400' to='/'>
           Contactos
         </Link>
-        <Link className='p-6 md:p-4 hover:text-red-400' to='/contactos'>
+        <Link className='p-6 md:p-4 hover:text-red-400' to='/nuevo'>
           Crear Contacto
         </Link>
       </nav>
