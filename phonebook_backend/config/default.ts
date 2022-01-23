@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default {
-    port: 4200 | process.env.PORT,
+    port: 4200,
     dbUri: process.env.DATABASE_URI,
     saltWorkFactor: 10,
     accessToken: "30m",
